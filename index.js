@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const UserRouter = require('./routes/UserRouter');
-const PORT = 5000;
+const PORT = 3000;
 
 const app = express();
 app.use(cors());
