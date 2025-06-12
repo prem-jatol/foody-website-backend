@@ -27,4 +27,20 @@ UserRouter.post(
     }
 )
 
+UserRouter.post(
+    "/login",
+    (req, res)=>{
+        const result = new UserController().login(req.body);
+        result.then(
+            (sucess)=>{
+                res.send(sucess);
+            }
+        ).catch(
+            (err)=>{
+                res.send(err)
+            }
+        )
+    }
+)
+
 module.exports = UserRouter;
