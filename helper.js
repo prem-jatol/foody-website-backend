@@ -11,8 +11,8 @@ const decryptPassword=(password)=>{
     return cryptr.decrypt(password);
 }
 
-const createToken = (user_data)=>{
-    return jwt.sign(user_data, sceretKey)
+const createToken = (user_email)=>{
+    return jwt.sign(user_email, sceretKey, {expiresIn: "1h"})
 }
 
 function verifyToken(token) {

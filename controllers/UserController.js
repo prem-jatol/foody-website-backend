@@ -1,5 +1,10 @@
 const UserModel = require("../models/UserModel");
-const { encryptPassword, decryptPassword, createToken, verifyToken } = require("../helper");
+const {
+  encryptPassword,
+  decryptPassword,
+  createToken,
+  verifyToken,
+} = require("../helper");
 
 class UserController {
   singIn(data) {
@@ -16,10 +21,9 @@ class UserController {
             email: data.email,
             password: encryptPass,
           });
-          const token = await createToken(user.toObject());
           user
             .save()
-            .then(res({ status: 1, user, token }))
+            .then(res({ status: 1, user }))
 
             .catch(rej({ status: 0, msg: "user not created" }));
         }
@@ -29,12 +33,37 @@ class UserController {
     });
   }
 
-  login(toke) {
-    return new Promise(async(res, rej) => {
-      const result = await verifyToken(token);
-      console.log("login api", result)
-      
+  login(data) {
+    return new Promise(async (res, rej) => {
+      try {
+        const { email, password } = data;
+       const user = await UserModel.findOne({ email: email });
+
+        if (!user) return rej({status : 0, msg: "your email not correct"});
+        const decryptPass = await decryptPassword(user.password)
+        if(decryptPass === password){
+          const token = await createToken({email: email})
+
+          res({status : 1, msg: "user log in", token, user})
+        }else{
+          rej({status : 0, msg: "your password not correct"});
+        }
+        
+      } catch (err) {
+        console.log("login controller", err.message);
+        rej({ status: 0, msg: "inernal server error" });
+      }
     });
+  }
+
+  profile(id){
+    return new Promise(
+      async (res, rej)=>{
+        const user = await UserModel.findById(id);
+        res({status: 1, user})
+        
+      }
+    )
   }
 }
 
