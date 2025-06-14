@@ -1,9 +1,10 @@
 const { verifyToken } = require("../helper");
 
 function verifyTokenMiddleware(req, res, next) {
-  const bearerHeader = req.headers["authorization"];
+ const bearerHeader = req.headers["authorization"];
+ console.log(bearerHeader);
+ 
   if (typeof bearerHeader !== "undefined") {
-    console.log(bearerHeader);
     
     const token = bearerHeader.split(" ")[1];
     const data = verifyToken(token);

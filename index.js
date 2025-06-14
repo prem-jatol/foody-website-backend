@@ -2,12 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const UserRouter = require('./routes/UserRouter');
+const cookieParser = require("cookie-parser");
 const PORT = 3000;
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'))
+app.use(cookieParser());
 
 // app.get(
 //     '/',
