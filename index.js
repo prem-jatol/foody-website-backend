@@ -1,8 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const UserRouter = require('./routes/UserRouter');
 const cookieParser = require("cookie-parser");
+const UserRouter = require('./routes/UserRouter');
+const ProductRouter = require('./routes/ProductRouter');
 const PORT = 3000;
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(cookieParser());
 // )
 
 app.use('/user', UserRouter)
+app.use('/product', ProductRouter)
 
 mongoose.connect(
     "mongodb://localhost:27017/",
