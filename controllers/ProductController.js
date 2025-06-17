@@ -16,6 +16,30 @@ class ProductController {
       }
     });
   }
+
+  addProducts(data){
+    return new Promise(async (res, rej) => {
+      try {
+        const {title, discount, subText, timeframe} = data;
+        const product = await new ProductModel({
+          title, discount, subText, timeframe
+        })
+        product.save()
+        .then(
+          ()=>{
+            res({status: 1, msg: "produt added", product})
+          }
+        )
+        .catch(
+          (err)=>{
+            rej({status: 0, msg: "product not added"})
+          }
+        )
+      } catch (err) {
+        console.log("internal server error from product ctr", err.message);
+      }
+    });
+  }
 }
 
 module.exports = ProductController;

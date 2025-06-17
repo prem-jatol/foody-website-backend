@@ -15,7 +15,7 @@ ProductRouter.get("/", (req, res) => {
 });
 
 ProductRouter.post("/add-product", (req, res) => {
-  const result = new ProductController().getProducts(req.body);
+  const result = new ProductController().addProducts(req.body);
   result
     .then((sucess) => {
       res.send(sucess);
