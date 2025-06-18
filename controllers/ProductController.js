@@ -4,15 +4,14 @@ class ProductController {
   getProducts() {
     return new Promise(async (res, rej) => {
       try {
-        const products = ProductModel.find();
+        const products = await ProductModel.find();
         if (products) {
-          res({ status: 1, message: "all products", products });
+          res({ status: 1, message: "all products", products, length: products.length, imagePath: "/images/product/" });
         } else {
           rej({ status: 0, message: "error during fetch products" });
         }
       } catch (err) {
-        console.log("internal server error from product ctr", err.message);
-        
+        console.log("internal server error from product ctr", err.message); 
       }
     });
   }
@@ -27,7 +26,7 @@ class ProductController {
         product.save()
         .then(
           ()=>{
-            res({status: 1, msg: "produt added", product})
+            res({status: 1, msg: "produt added"})
           }
         )
         .catch(

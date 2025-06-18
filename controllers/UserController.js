@@ -151,7 +151,7 @@ class UserController {
             new Date().getTime() +
             Math.floor(Math.random() * 1000) +
             image.name;
-          const destination = "./public/images/user/" + newImage;
+          const destination = "./images/user/" + newImage;
           image.mv(destination, (err) => {
             if (!err) {
               UserModel.updateOne(
