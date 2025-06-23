@@ -1,16 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const cookieParser = require("cookie-parser");
 const UserRouter = require('./routes/UserRouter');
 const ProductRouter = require('./routes/ProductRouter');
-const PORT = 3000;
+const CartRouter = require('./routes/CartRouter');
+const PORT = 5000;
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'))
-app.use(cookieParser());
 
 // app.get(
 //     '/',
@@ -21,6 +20,7 @@ app.use(cookieParser());
 
 app.use('/user', UserRouter)
 app.use('/product', ProductRouter)
+app.use('/cart', CartRouter)
 
 mongoose.connect(
     "mongodb://localhost:27017/",
